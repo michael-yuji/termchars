@@ -150,13 +150,13 @@ impl<'a> TermString<'a> {
         while let Some(next) = iterator.next() {
             match next {
                 TermChar::Visible(c) => {
-                    ret.push_str(c);
-                    count += 1;
                     // We only check the condition here because if there are
                     // trailing color formatting seqs we wanna include it
                     if count == size {
                         break
                     }
+                    ret.push_str(c);
+                    count += 1;
                 },
                 TermChar::CSI(Csi::SGR(seq)) => ret.push_str(&seq.concat()),
                 _ => continue
